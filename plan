@@ -1,0 +1,24 @@
+// UI
+
+need a room - fixed
+load URL with a unique key -> if matched, show the name input. 
+
+if name is yuan - host - host permissions
+if name not yuan - guest permissions
+
+people can join the room - input name/edit name
+
+// 2 views - name input and scrum poker view
+
+people can select poker
+select poker 
+UI: highlight
+send selected value to back end with name
+
+host can reveal the points and restart the round
+host clicks reveal - name and points are displayed
+
+host clicks restart - each player's poker is no longer highlighted
+
+// server  
+websocket 
