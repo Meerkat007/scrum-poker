@@ -1,11 +1,18 @@
 const { WebSocketServer } = require('ws');
-const {NEW_MEMBER_JOINED} = require('./socketServerConstants');
+const {NEW_MEMBER_JOINED, SUBMIT_ESTIMATE} = require('./socketServerConstants');
 
 const wss = new WebSocketServer({ port: 8080 });
 
-const room = {};
+/**
+ * {
+ * name: {
+ *  estimate,
+ *  isHost
+ * },
+ * }
+ */
 const guests = {};
-const host = {};
+
 const connections = {};
 
 
@@ -30,7 +37,10 @@ wss.on('connection', function connection(ws, request) {
   connections[request.url] = ws;
   console.log(`member name: ${memberName}, joined room: ${roomId}`);
   
-  guests[memberName] = -1;
+  guests[memberName] = {
+      estimate: '',
+      isHost: memberName === 'Yuan'
+  };
   console.log(`guests list for room: ${roomId} updated to ${JSON.stringify(guests)}`);
 
   // notify all connected clients
@@ -41,7 +51,17 @@ wss.on('connection', function connection(ws, request) {
 
   ws.on('message', function incoming(message) {
     // const data = JSON.parse(message);
+    const parsedMessage = JSON.parse(message);
     console.log('!!!!!message received', message);
+    const {action, value} = parsedMessage;
+    if (action === SUBMIT_ESTIMATE) {
+        const {name, estimate} = value;
+        guests[name] = {
+            ...guests[name],
+            estimate
+        }
+    }
+    console.log('estimate updated', guests);
   });
 
   ws.on('close', function(code, data) {

@@ -10,11 +10,12 @@ export function useRoom() {
     return React.useContext(RoomContext);
 }
 
+export let socket;
+
 export default function RoomProvider({children}) {
     const {name} = useName();
     const [room, setRoom] = React.useState('');
     const [guests, setGuests] = React.useState();
-    let socket;
 
     function connectToRoom(roomId, teamMemberName) {
         socket = new WebSocket(
@@ -40,6 +41,11 @@ export default function RoomProvider({children}) {
           }
     }
 
+    function sendMessage(socket, message) {
+        console.log('sendmessage', socket)
+        socket && socket.send(JSON.stringify(message));
+    }
+
     function terminateSocket() {
         console.log('socket send');
         socket.send(
@@ -53,14 +59,6 @@ export default function RoomProvider({children}) {
         );
     }
 
-    React.useEffect(() => {
-        return () => {
-            // terminate websocket session
-            // terminateSocket();
-            // socket.close('101')
-        }
-    }, [])
-
     return (
         <RoomContext.Provider value={{
             room,
@@ -68,6 +66,7 @@ export default function RoomProvider({children}) {
             connectToRoom,
             guests,
             setGuests,
+            sendMessage,
         }}>
             {children}
         </RoomContext.Provider>
