@@ -7,7 +7,18 @@ const guests = {};
 const host = {};
 
 wss.on('connection', function connection(ws, request) {
-  if (!request.url.includes('a2ac1zQ3')) {
+    const {url} = request;
+    const query = url.split('?')[1];
+    const roomId = getQueryVariableValue(
+        query,
+        'roomId'
+    );
+    const memberName = getQueryVariableValue(
+        query,
+        'memberName'
+    )
+    console.log(`member name: ${memberName}, wants to join room: ${roomId}`)
+  if (roomId !== 'a2ac1zQ3' || !memberName || !memberName.trim()) {
       ws.send('rejected');
       ws.close();
   }
@@ -20,3 +31,14 @@ wss.on('connection', function connection(ws, request) {
   
 
 });
+
+function getQueryVariableValue(query, variable) {
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
+}

@@ -19,7 +19,8 @@ export default function RoomProvider({children}) {
 
     function connectToRoom(roomId, teamMemberName) {
         socket = new WebSocket(
-            "ws://localhost:8080/?roomId=" + roomId
+            "ws://localhost:8080/?roomId=" + roomId +
+            "&memberName=" + teamMemberName
         );
 
         socket.onmessage = function (event) {
