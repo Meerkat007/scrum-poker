@@ -32,7 +32,7 @@ export default function MembersDisplay() {
     }
 
     return (
-        <div>
+        <div id="member_display">
             {renderGuests()}
         </div>
     )

@@ -35,18 +35,18 @@ export default function EstimatePicker() {
 
     function renderCards() {
         return ESTIMATES.map(estimate => {
-            const labelClassNames = [];
+            const cardClassNames = ['card'];
             const isChecked = estimate === estimatePicked;
             if (isChecked) {
-                labelClassNames.push("is_checked");
+                cardClassNames.push("is_checked");
             }
             return (
                 <div 
-                    className="card" 
+                    className={cardClassNames.join(' ')} 
                     key={estimate}
                 >
                     <div className="card_content">
-                    <label className={labelClassNames.join(' ')}>
+                    <label>
                         <input
                             type="radio"
                             name="estimate"
