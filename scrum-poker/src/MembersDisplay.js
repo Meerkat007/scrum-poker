@@ -2,7 +2,12 @@ import React from 'react';
 import {useRoom} from './hooks/useRoom';
 
 export default function MembersDisplay() {
-    const {guests} = useRoom();
+    const {
+        guests,
+        shouldShowEstimate
+    } = useRoom();
+
+    console.log('guests', guests);
 
     function renderGuests() {
         if (!guests) {
@@ -14,11 +19,13 @@ export default function MembersDisplay() {
         guestNames.sort();
         return guestNames.map(name => {
             const {estimate} = guests[name];
-
+            console.log('guest', guests[name])
             return (
                 <div key={name + estimate}>
                     <div>{name}</div>
-                    {estimate}
+                    {shouldShowEstimate && estimate}
+                    {!shouldShowEstimate && estimate && 'picked'}
+                    {!shouldShowEstimate && !estimate && 'not picked'}
                 </div>
             )
         })

@@ -16,6 +16,7 @@ export default function RoomProvider({children}) {
     const {name} = useName();
     const [room, setRoom] = React.useState('');
     const [guests, setGuests] = React.useState();
+    const [shouldShowEstimate, setShouldShowEstimate] = React.useState(false);
 
     function connectToRoom(roomId, teamMemberName) {
         socket = new WebSocket(
@@ -29,15 +30,17 @@ export default function RoomProvider({children}) {
 
             if (action === socketClientConstants.NEW_MEMBER_JOINED) {
                 const guests = value;
-                console.log('new member joined', guests)
-
                 setRoom(roomId);
                 setGuests(guests);
+            } else if (action === socketClientConstants.UPDATE_GUESTS) {
+                const guests = value;
+                setGuests(guests);
+            } else if (action === socketClientConstants.UPDATE_ESTIMATE_DISPLAY_STATE) {
+                setShouldShowEstimate(value);
             }
 
             // someone left
 
-            // someone voted
 
             // reset round
           }
@@ -69,6 +72,7 @@ export default function RoomProvider({children}) {
             guests,
             setGuests,
             sendMessage,
+            shouldShowEstimate
         }}>
             {children}
         </RoomContext.Provider>
