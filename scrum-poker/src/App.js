@@ -3,6 +3,7 @@ import React from 'react'
 import {useName} from './hooks/useName';
 import NameInputView from './NameInputView';
 import {useRoom} from './hooks/useRoom';
+import Room from './Room';
 
 
 /**
@@ -10,9 +11,7 @@ import {useRoom} from './hooks/useRoom';
  */
 
 function App() {
-  const {name} = useName();
   const {room} = useRoom();
-  const [connected, setConnected] = React.useState('');
 
   React.useState(() => {
     
@@ -27,7 +26,7 @@ function App() {
         <NameInputView />
       )}
       {room && (
-        <div>joinedd</div>
+        <Room />
       )}
     </div>
   );

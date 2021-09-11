@@ -1,20 +1,19 @@
 import React from 'react';
-import {getQueryVariable} from '../utils';
+import {socketClientConstants} from '../socketClientConstants';
+import {getWsData} from '../utils';
+import {useName} from './useName';
 
 
 export const RoomContext = React.createContext('');
 
 export function useRoom() {
-    const {room, setRoom, connectToRoom} = React.useContext(RoomContext);
-    return {
-        room,
-        setRoom,
-        connectToRoom
-    }
+    return React.useContext(RoomContext);
 }
 
 export default function RoomProvider({children}) {
+    const {name} = useName();
     const [room, setRoom] = React.useState('');
+    const [guests, setGuests] = React.useState();
     let socket;
 
     function connectToRoom(roomId, teamMemberName) {
@@ -25,8 +24,12 @@ export default function RoomProvider({children}) {
 
         socket.onmessage = function (event) {
             const {data} = event;
-            if (data === 'connected') {
-                setRoom(true);
+            const {action, value} = getWsData(data);
+
+            if (action === socketClientConstants.NEW_MEMBER_JOINED) {
+                const guests = value;
+                setRoom(roomId);
+                setGuests(guests);
             }
 
             // someone left
@@ -37,11 +40,34 @@ export default function RoomProvider({children}) {
           }
     }
 
+    function terminateSocket() {
+        console.log('socket send');
+        socket.send(
+            JSON.stringify({
+                action:  socketClientConstants.MEMBER_LEFT,
+                value: {
+                    roomId: room,
+                    memberName: name
+                }
+            })
+        );
+    }
+
+    React.useEffect(() => {
+        return () => {
+            // terminate websocket session
+            // terminateSocket();
+            // socket.close('101')
+        }
+    }, [])
+
     return (
         <RoomContext.Provider value={{
             room,
             setRoom,
-            connectToRoom
+            connectToRoom,
+            guests,
+            setGuests,
         }}>
             {children}
         </RoomContext.Provider>

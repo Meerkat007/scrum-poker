@@ -18,8 +18,6 @@ export default function NameInputView() {
             roomId,
             name
         )
-        // send name to websocket
-        // once submission worked, update view to poker view
     }
 
     return (

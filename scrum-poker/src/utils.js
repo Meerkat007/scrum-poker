@@ -9,3 +9,7 @@ export function getQueryVariable(variable) {
     }
     console.log('Query variable %s not found', variable);
 }
+
+export function getWsData(data) {
+    return JSON.parse(data);
+}
