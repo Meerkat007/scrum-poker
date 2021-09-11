@@ -1,0 +1,47 @@
+#estimate_picker {
+    display: flex;
+    justify-content: center;
+}
+
+#estimate_picker .card {
+    flex: 1 1 100%;
+    padding: 5px;
+    max-width: 120px;
+}
+
+#estimate_picker .card .card_content {
+    border: 1px solid lightgray;
+    height: 200px;
+    border-radius: 3px;
+}
+
+#estimate_picker .card .card_content:hover {
+    transform: translate3d(0px, -1px, 0px);
+    box-shadow: 0px 0px 3px 4px rgba(224,224,224,0.50);
+}
+
+#estimate_picker .card .card_content label {
+    width: 100%;
+    display: block;
+    height: 100%;
+    cursor: pointer;
+    line-height: 190px;
+    font-size: 30px;
+    color: gray;
+}
+
+#estimate_picker .card .card_content label.is_checked {
+    background-color: turquoise;
+    color: white;
+}
+
+#estimate_picker .card .card_content label:hover {
+    /* outline: 3px solid turquoise; */
+    /* box-shadow: 3px 2px 3px 2px #e0e0e0 */
+}
+
+#estimate_picker .card .card_content label > input {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}

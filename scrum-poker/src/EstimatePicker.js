@@ -2,6 +2,7 @@ import React from 'react';
 import {useName} from './hooks/useName';
 import {socket, useRoom} from './hooks/useRoom';
 import {socketClientConstants} from './socketClientConstants';
+import './EstimatePicker.css';
 
 const ESTIMATES = [
     '30m',
@@ -34,25 +35,35 @@ export default function EstimatePicker() {
 
     function renderCards() {
         return ESTIMATES.map(estimate => {
+            const labelClassNames = [];
+            const isChecked = estimate === estimatePicked;
+            if (isChecked) {
+                labelClassNames.push("is_checked");
+            }
             return (
-                <div key={estimate}>
-                    <label>
+                <div 
+                    className="card" 
+                    key={estimate}
+                >
+                    <div className="card_content">
+                    <label className={labelClassNames.join(' ')}>
                         <input
                             type="radio"
                             name="estimate"
                             vaue={estimate}
-                            checked={estimate === estimatePicked}
+                            checked={isChecked}
                             onChange={() => handleCardClick(estimate)} 
                         />
                         {estimate}
                     </label>
+                    </div>
                 </div>
             )
         })
     }
 
     return (
-        <div>
+        <div id="estimate_picker">
             {renderCards()}
         </div>
     )
