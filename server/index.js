@@ -28,6 +28,16 @@ function broadcast(message) {
       });
 }
 
+function clearGuestsEstimate() {
+    Object.keys(guests)
+        .forEach((name) => {
+            guests[name] = {
+                ...guests[name],
+                estimate: ''
+            }
+        })
+}
+
 wss.on('connection', function connection(ws, request) {
     const {url} = request;
     const query = url.split('?')[1];
@@ -77,6 +87,13 @@ wss.on('connection', function connection(ws, request) {
             value: guests
         })
     } else if (action === UPDATE_ESTIMATE_DISPLAY_STATE) {
+        if (!value) {
+            clearGuestsEstimate(guests);
+            broadcast({
+                action: UPDATE_GUESTS,
+                value: guests
+            })
+        }
         broadcast({
             action: UPDATE_ESTIMATE_DISPLAY_STATE,
             value
@@ -95,6 +112,16 @@ setInterval(function() {
     connectionsEntries.forEach(([url, ws]) => {
         if (ws.readyState === 3) {
             delete connections[url]
+            const query = url.split('?')[1];
+            const memberName = getQueryVariableValue(
+                query,
+                'memberName'
+            )
+            delete guests[memberName];
+            broadcast({
+                action: UPDATE_GUESTS,
+                value: guests
+            })
             console.log(`URL: ${url} is closed and removed from connections.`);
         }
     })
@@ -104,7 +131,7 @@ function getQueryVariableValue(query, variable) {
     var vars = query.split('&');
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
+        if (decodeURIComponent(pair[0]) === variable) {
             return decodeURIComponent(pair[1]);
         }
     }
