@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react'
-import {useName} from './hooks/useName';
 import NameInputView from './NameInputView';
 import {useRoom} from './hooks/useRoom';
 import Room from './Room';
