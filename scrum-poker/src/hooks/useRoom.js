@@ -29,6 +29,8 @@ export default function RoomProvider({children}) {
 
             if (action === socketClientConstants.NEW_MEMBER_JOINED) {
                 const guests = value;
+                console.log('new member joined', guests)
+
                 setRoom(roomId);
                 setGuests(guests);
             }

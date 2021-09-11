@@ -1,7 +1,7 @@
-const { WebSocketServer } = require('ws');
+const WebSocket = require('ws');
 const {NEW_MEMBER_JOINED, SUBMIT_ESTIMATE} = require('./socketServerConstants');
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocket.WebSocketServer({ port: 8080 });
 
 /**
  * {
@@ -15,6 +15,13 @@ const guests = {};
 
 const connections = {};
 
+function broadcast(message) {
+    wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      });
+}
 
 wss.on('connection', function connection(ws, request) {
     const {url} = request;
@@ -44,10 +51,10 @@ wss.on('connection', function connection(ws, request) {
   console.log(`guests list for room: ${roomId} updated to ${JSON.stringify(guests)}`);
 
   // notify all connected clients
-  ws.send(serializeData({
-      action: NEW_MEMBER_JOINED,
-      value: guests
-  }))
+  broadcast(serializeData({
+    action: NEW_MEMBER_JOINED,
+    value: guests
+    }))
 
   ws.on('message', function incoming(message) {
     // const data = JSON.parse(message);
