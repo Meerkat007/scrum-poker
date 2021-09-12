@@ -18,6 +18,14 @@ export default function RoomProvider({children}) {
     const [guests, setGuests] = React.useState();
     const [shouldShowEstimate, setShouldShowEstimate] = React.useState(false);
 
+    function getDeserializedGuests(serializedGuests) {
+        try {
+            return new Map(JSON.parse(serializedGuests))
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     function connectToRoom(roomId, teamMemberName) {
         socket = new WebSocket(
             "ws://localhost:8080/?roomId=" + roomId +
@@ -31,18 +39,13 @@ export default function RoomProvider({children}) {
             if (action === socketClientConstants.NEW_MEMBER_JOINED) {
                 const guests = value;
                 setRoom(roomId);
-                setGuests(guests);
+                setGuests(getDeserializedGuests(guests));
             } else if (action === socketClientConstants.UPDATE_GUESTS) {
                 const guests = value;
-                setGuests(guests);
+                setGuests(getDeserializedGuests(guests));
             } else if (action === socketClientConstants.UPDATE_ESTIMATE_DISPLAY_STATE) {
                 setShouldShowEstimate(value);
             }
-
-            // someone left
-
-
-            // reset round
           }
     }
 

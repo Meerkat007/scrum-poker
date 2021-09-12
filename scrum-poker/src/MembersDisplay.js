@@ -8,17 +8,17 @@ export default function MembersDisplay() {
         shouldShowEstimate
     } = useRoom();
 
-    console.log('guests', guests);
-
     function renderGuests() {
         if (!guests) {
             return;
         }
         
         // sort the guests by name
-        const guestNames = Object.keys(guests);
-        return guestNames.map((name, index) => {
-            const {estimate} = guests[name];
+        const renderedGuests = [];
+        let index = 0;
+        guests.forEach((info, name) => {
+            index++;
+            const {estimate} = info;
             const pickedCardClassNames = ['member_card'];
             if (!shouldShowEstimate && estimate) {
                 pickedCardClassNames.push('picked');
@@ -28,10 +28,10 @@ export default function MembersDisplay() {
 
             const memberClassNames = [
                 'member',
-                'member_' + (index + 1)
+                'member_' + index
             ];
 
-            return (
+            renderedGuests.push(
                 <div
                     key={name + estimate}
                     className={memberClassNames.join(' ')}
@@ -47,11 +47,25 @@ export default function MembersDisplay() {
                 </div>
             )
         })
+        return renderedGuests;
+    }
+
+    function getStatusMessage() {
+        let hasEveryoneVoted = false;
+        if (hasEveryoneVoted) {
+            return 'Ready to reveal the estimates';
+        } else {
+            return 'Waiting for everyone\'s estimate...';
+        }
     }
 
     return (
         <div id="member_display">
-            <div className="table" />
+            <div className="table">
+                <div className="scrum_status">
+                    {getStatusMessage()}
+                </div>
+            </div>
             {renderGuests()}
         </div>
     )

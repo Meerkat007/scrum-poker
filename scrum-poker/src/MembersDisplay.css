@@ -12,6 +12,7 @@
 
 #member_display .table {
     grid-area: table;
+    position: relative;
     width: 100%;
     opacity: 0.5;
     height: 200px;
@@ -19,6 +20,17 @@
     background-color: var(--primary-color);
     border-radius: 15px;
     margin: 0 auto;
+}
+
+#member_display .table .scrum_status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 300px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
 }
 
 #member_display .member {
