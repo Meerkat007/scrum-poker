@@ -54,7 +54,9 @@ export default function EstimatePicker() {
                             checked={isChecked}
                             onChange={() => handleCardClick(estimate)} 
                         />
-                        {estimate}
+                        <div className="card_estimate">
+                            {estimate}
+                        </div>
                     </label>
                     </div>
                 </div>

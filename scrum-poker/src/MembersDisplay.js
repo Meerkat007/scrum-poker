@@ -1,5 +1,6 @@
 import React from 'react';
 import {useRoom} from './hooks/useRoom';
+import './MembersDisplay.css';
 
 export default function MembersDisplay() {
     const {
@@ -16,16 +17,33 @@ export default function MembersDisplay() {
         
         // sort the guests by name
         const guestNames = Object.keys(guests);
-        guestNames.sort();
-        return guestNames.map(name => {
+        return guestNames.map((name, index) => {
             const {estimate} = guests[name];
-            console.log('guest', guests[name])
+            const pickedCardClassNames = ['member_card'];
+            if (!shouldShowEstimate && estimate) {
+                pickedCardClassNames.push('picked');
+            } else if (!shouldShowEstimate && !estimate) {
+                pickedCardClassNames.push('not_picked');
+            }
+
+            const memberClassNames = [
+                'member',
+                'member_' + (index + 1)
+            ];
+
             return (
-                <div key={name + estimate}>
-                    <div>{name}</div>
-                    {shouldShowEstimate && estimate}
-                    {!shouldShowEstimate && estimate && 'picked'}
-                    {!shouldShowEstimate && !estimate && 'not picked'}
+                <div
+                    key={name + estimate}
+                    className={memberClassNames.join(' ')}
+                >
+                    <div className="member_name">{name}</div>
+                    <div className={pickedCardClassNames.join(' ')}>
+                        {shouldShowEstimate && (
+                            <div className="member_estimate">
+                                {estimate}
+                            </div>
+                        )}
+                    </div>
                 </div>
             )
         })
@@ -33,6 +51,7 @@ export default function MembersDisplay() {
 
     return (
         <div id="member_display">
+            <div className="table" />
             {renderGuests()}
         </div>
     )

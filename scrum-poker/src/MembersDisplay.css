@@ -1,0 +1,73 @@
+#member_display {
+    display: grid;
+    justify-content: center;
+    grid-template-areas: 
+    ". member_2 member_4 member_6 ."
+    "member_1 table table table member_8"
+    ". member_3 member_5 member_7."
+    ;
+    grid-template-columns: 100px 120px 120px 120px 100px;
+}
+
+#member_display .table {
+    grid-area: table;
+    width: 100%;
+    height: 200px;
+    max-width: 600px;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
+#member_display .member {
+    padding: 5px;
+}
+
+#member_display .member.member_1 {
+    grid-area: member_1;
+}
+
+#member_display .member.member_2 {
+    grid-area: member_2;
+}
+
+#member_display .member.member_3 {
+    grid-area: member_3;
+}
+
+#member_display .member.member_4 {
+    grid-area: member_4;
+}
+
+#member_display .member .member_name {
+    padding: 5px 0;
+    text-align: center;
+}
+
+#member_display .member .member_card {
+    position: relative;
+    margin: 0 auto;
+    width: 60px;
+    height: 100px;
+    border: 1px solid var(--primary-gray);
+    border-radius: 3px;
+}
+
+#member_display .member .member_card.picked {
+    background: repeating-linear-gradient(
+        45deg,
+        #606dbc, 
+        #606dbc 10px,
+        #465298 10px, 
+        #465298 20px 
+    );
+}
+
+#member_display .member .member_card .member_estimate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
