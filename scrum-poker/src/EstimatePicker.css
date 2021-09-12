@@ -12,11 +12,11 @@
 }
 
 #estimate_picker .card.is_checked {
-    transform: translateY(-10px);
+    transform: translateY(-30px);
 }
 
 #estimate_picker .card .card_content {
-    border: 1px solid lightgray;
+    border: 1px solid var(--primary-color);
     height: 150px;
     border-radius: 3px;
     transition: 0.3s;
@@ -42,12 +42,11 @@
     cursor: pointer;
     line-height: 190px;
     font-size: 30px;
-    color: gray;
+    color: var(--primary-color);
 }
 
 #estimate_picker .card.is_checked .card_content label {
-    background-color: var(--primary-color);
-    color: white;
+    /* color: white; */
 }
 
 #estimate_picker .card .card_content label > input {

@@ -1,5 +1,6 @@
 #member_display {
     display: grid;
+    min-height: 450px;
     justify-content: center;
     grid-template-areas: 
     ". member_2 member_4 member_6 ."
@@ -12,6 +13,7 @@
 #member_display .table {
     grid-area: table;
     width: 100%;
+    opacity: 0.5;
     height: 200px;
     max-width: 600px;
     background-color: var(--primary-color);
@@ -56,10 +58,10 @@
 #member_display .member .member_card.picked {
     background: repeating-linear-gradient(
         45deg,
-        #606dbc, 
-        #606dbc 10px,
-        #465298 10px, 
-        #465298 20px 
+        var(--primary-color), 
+        var(--primary-color) 10px,
+        var(--primary-color-light) 10px, 
+        var(--primary-color-light) 20px 
     );
 }
 
