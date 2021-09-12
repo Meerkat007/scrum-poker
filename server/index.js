@@ -99,14 +99,14 @@ wss.on('connection', function connection(ws, request) {
         updateGuestInfoByName(name, 'estimate', estimate);
         broadcast({
             action: UPDATE_GUESTS,
-            value: getSerializeGuests
+            value: getSerializeGuests()
         })
     } else if (action === UPDATE_ESTIMATE_DISPLAY_STATE) {
         if (!value) {
             clearGuestsEstimate();
             broadcast({
                 action: UPDATE_GUESTS,
-                value: getSerializeGuests
+                value: getSerializeGuests()
             })
         }
         broadcast({
