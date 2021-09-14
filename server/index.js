@@ -52,10 +52,9 @@ function getSerializeGuests() {
 }
 
 function clearGuestsEstimate() {
-    Object.keys(guests)
-        .forEach((name) => {
-            updateGuestInfoByName(name, 'estimate', '');
-        })
+    guests.forEach((_, name) => {
+        updateGuestInfoByName(name, 'estimate', '');
+    })
 }
 
 wss.on('connection', function connection(ws, request) {
