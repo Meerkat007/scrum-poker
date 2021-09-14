@@ -8,3 +8,7 @@
   --primary-gray: #d4dee8;
   --secondary-gray: #ebf1f4;
 }
+
+* {
+  box-sizing: border-box;
+}

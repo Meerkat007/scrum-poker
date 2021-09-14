@@ -63,7 +63,8 @@
     margin: 0 auto;
     width: 60px;
     height: 84px;
-    border: 1px solid var(--primary-gray);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
     border-radius: 3px;
 }
 

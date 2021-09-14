@@ -41,6 +41,9 @@ export default function EstimatePicker() {
             if (isChecked) {
                 cardClassNames.push("is_checked");
             }
+            if (shouldShowEstimate) {
+                cardClassNames.push('disabled');
+            }
             return (
                 <div 
                     className={cardClassNames.join(' ')} 
