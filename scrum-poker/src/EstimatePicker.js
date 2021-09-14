@@ -16,15 +16,13 @@ const ESTIMATES = [
 ]
 
 export default function EstimatePicker() {
-    const [estimatePicked, setEstimatePicked] = React.useState();
     const {name} = useName();
-    const {sendMessage, shouldShowEstimate} = useRoom();
+    const {sendMessage, shouldShowEstimate, myInfo} = useRoom();
 
     function handleCardClick(estimate) {
         if (shouldShowEstimate) {
             return;
         }
-        setEstimatePicked(estimate);
         sendMessage(
             socket,
             {
@@ -39,7 +37,7 @@ export default function EstimatePicker() {
     function renderCards() {
         return ESTIMATES.map(estimate => {
             const cardClassNames = ['card'];
-            const isChecked = estimate === estimatePicked;
+            const isChecked = estimate === myInfo?.estimate;
             if (isChecked) {
                 cardClassNames.push("is_checked");
             }

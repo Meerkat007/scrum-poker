@@ -67,6 +67,13 @@ export default function RoomProvider({children}) {
         );
     }
 
+    let myInfo;
+    guests && guests.forEach((info, guestName) => {
+        if (name === guestName) {
+            myInfo = info;
+        }
+    })
+
     return (
         <RoomContext.Provider value={{
             room,
@@ -75,7 +82,8 @@ export default function RoomProvider({children}) {
             guests,
             setGuests,
             sendMessage,
-            shouldShowEstimate
+            shouldShowEstimate,
+            myInfo
         }}>
             {children}
         </RoomContext.Provider>

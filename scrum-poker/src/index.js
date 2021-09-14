@@ -8,13 +8,13 @@ import EstimateProvider from './hooks/useEstimate';
 
 ReactDOM.render(
   <React.StrictMode>
+    <NameProvider>
     <EstimateProvider>
     <RoomProvider>
-      <NameProvider>
         <App />
-      </NameProvider>
     </RoomProvider>
     </EstimateProvider>
+    </NameProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

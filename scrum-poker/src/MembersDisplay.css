@@ -7,7 +7,7 @@
     ". member_3 member_5 member_7."
     ;
     grid-template-columns: 100px 120px 120px 120px 100px;
-    grid-template-rows: minmax(100px, auto) auto minmax(100px, auto);
+    grid-template-rows: minmax(100px, auto) auto minmax(50px, auto);
 }
 
 #member_display .table {
@@ -17,7 +17,7 @@
     opacity: 0.5;
     height: 200px;
     max-width: 600px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color-dark);
     border-radius: 15px;
     margin: 0 auto;
 }

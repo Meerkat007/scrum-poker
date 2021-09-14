@@ -9,7 +9,7 @@ export default function NameInputView() {
 
     function handleNameChange(event) {
         const name = event.target.value.trim();
-        setName(() => name);
+        setName(name);
     }
     
     function handleSubmission() {
