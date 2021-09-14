@@ -63,8 +63,8 @@ export default function MembersDisplay() {
 
         guests.forEach((info, guestName) => {
             const {estimate} = info;
-            hasEveryoneVoted = hasEveryoneVoted && estimate;
-            hasIVoted = estimate && guestName === name;
+            hasEveryoneVoted = hasEveryoneVoted && Boolean(estimate);
+            hasIVoted = hasIVoted || (estimate && guestName === name);
         })
         
         if (!hasIVoted) {
