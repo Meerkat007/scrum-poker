@@ -18,9 +18,12 @@ const ESTIMATES = [
 export default function EstimatePicker() {
     const [estimatePicked, setEstimatePicked] = React.useState();
     const {name} = useName();
-    const {sendMessage} = useRoom();
+    const {sendMessage, shouldShowEstimate} = useRoom();
 
     function handleCardClick(estimate) {
+        if (shouldShowEstimate) {
+            return;
+        }
         setEstimatePicked(estimate);
         sendMessage(
             socket,
