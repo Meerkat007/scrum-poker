@@ -1,4 +1,5 @@
 import React from 'react';
+import {useName} from './hooks/useName';
 import {useRoom} from './hooks/useRoom';
 import './MembersDisplay.css';
 
@@ -7,6 +8,8 @@ export default function MembersDisplay() {
         guests,
         shouldShowEstimate
     } = useRoom();
+
+    const {name} = useName();
 
     function renderGuests() {
         if (!guests) {
@@ -51,11 +54,27 @@ export default function MembersDisplay() {
     }
 
     function getStatusMessage() {
-        let hasEveryoneVoted = false;
+        let hasEveryoneVoted = true;
+        let hasIVoted = false;
+
+        if (!guests) {
+            return 'Waiting for team members to join.'
+        }
+
+        guests.forEach((info, guestName) => {
+            const {estimate} = info;
+            hasEveryoneVoted = hasEveryoneVoted && estimate;
+            hasIVoted = estimate && guestName === name;
+        })
+        
+        if (!hasIVoted) {
+            return 'Waiting for you to provide an estimate';
+        } 
+        if (hasIVoted && !hasEveryoneVoted) {
+            return 'Waiting for others to provide estimates';
+        }
         if (hasEveryoneVoted) {
-            return 'Ready to reveal the estimates';
-        } else {
-            return 'Waiting for everyone\'s estimate...';
+            return 'Everyone has provided estimate';
         }
     }
 
