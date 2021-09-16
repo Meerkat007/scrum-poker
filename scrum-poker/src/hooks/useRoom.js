@@ -15,7 +15,7 @@ export let socket;
 export default function RoomProvider({children}) {
     const {name} = useName();
     const [room, setRoom] = React.useState('');
-    const [guests, setGuests] = React.useState();
+    const [guests, setGuests] = React.useState(undefined);
     const [shouldShowEstimate, setShouldShowEstimate] = React.useState(false);
 
     function getDeserializedGuests(serializedGuests) {
@@ -45,6 +45,9 @@ export default function RoomProvider({children}) {
                 setGuests(getDeserializedGuests(guests));
             } else if (action === socketClientConstants.UPDATE_ESTIMATE_DISPLAY_STATE) {
                 setShouldShowEstimate(value);
+            } else if (action === socketClientConstants.FORCED_EXIT_ROOM) {
+                setRoom('');
+                setGuests(undefined);
             }
           }
     }

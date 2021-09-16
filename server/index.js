@@ -3,7 +3,9 @@ const {
     NEW_MEMBER_JOINED, 
     SUBMIT_ESTIMATE, 
     UPDATE_GUESTS, 
-    UPDATE_ESTIMATE_DISPLAY_STATE
+    UPDATE_ESTIMATE_DISPLAY_STATE,
+    KICK_EVERYONE,
+    FORCED_EXIT_ROOM
 } = require('./socketServerConstants');
 
 const wss = new WebSocket.WebSocketServer({ port: 8080 });
@@ -16,7 +18,7 @@ const wss = new WebSocket.WebSocketServer({ port: 8080 });
  * },
  * }
  */
-const guests = new Map();
+let guests = new Map();
 
 const connections = {};
 
@@ -80,7 +82,7 @@ wss.on('connection', function connection(ws, request) {
   
   addNewGuest(memberName);
 
-  console.log(`guests list for room: ${roomId} updated to ${JSON.stringify(guests)}`);
+  console.log(`guests list for room: ${roomId} updated to ${Array.from(guests.entries())}`);
 
   // notify all connected clients
   broadcast({
@@ -112,6 +114,14 @@ wss.on('connection', function connection(ws, request) {
             action: UPDATE_ESTIMATE_DISPLAY_STATE,
             value
         })
+    } else if (action === KICK_EVERYONE) {
+        guests = new Map();
+        console.log(`kicked out everyone by ${memberName}, guests: ${guests}`);
+        broadcast({
+            action: FORCED_EXIT_ROOM,
+            value: true
+        });
+        closeAllConnections();
     }
     console.log('estimate updated', guests);
   });
@@ -120,6 +130,12 @@ wss.on('connection', function connection(ws, request) {
       console.log('closed!!!!!', code);
   })
 });
+
+function closeAllConnections() {
+    wss.clients.forEach(function each(client) {
+        client && client.close();
+    });
+}
 
 setInterval(function() {
     const connectionsEntries = Object.entries(connections);

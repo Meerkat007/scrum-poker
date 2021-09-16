@@ -24,6 +24,16 @@ export default function Room() {
         )
     }
 
+    function kickEveryoneButtonClick() {
+        sendMessage(
+            socket,
+            {
+                action: socketClientConstants.KICK_EVERYONE,
+                value: '{}'
+            }    
+        )
+    }
+
     return (
         <div>
             <MembersDisplay />
@@ -36,6 +46,13 @@ export default function Room() {
                         ? 'Reset'
                         : 'Show Estimate'
                     } 
+                </button>
+            )}
+            {isHost && (
+                <button
+                    onClick={kickEveryoneButtonClick}
+                >
+                    Kick everyone
                 </button>
             )}
         </div>
