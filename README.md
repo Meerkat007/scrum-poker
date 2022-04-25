@@ -1,2 +1,2 @@
 # scrum-poker
-test
+test 2
