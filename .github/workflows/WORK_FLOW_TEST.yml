@@ -1,15 +1,15 @@
 name: Pull Request Stats
 
-on: 
-  pull_request:
-    types:
-      - closed
+on: issue_comment
 
 jobs:
-  stats:
+  run_if:
+    if: ${{ github.event.pull_request.title == '[DO NOT MERGE] pull-request-stats'}
     runs-on: ubuntu-latest
     steps:
       - name: Run pull request stats
         uses: flowwer-dev/pull-request-stats@master
         with:
-          period: 2
+          period: 7
+          disable-links: true
+          telemetry: false
