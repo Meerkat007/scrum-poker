@@ -1,10 +1,12 @@
 name: Pull Request Stats
 
-on: issue_comment
+on: 
+  pull_request:
+    types: [labeled]
 
 jobs:
   run_if:
-    if: github.context.payload.pull_request.title == '[DO NOT MERGE] pull-request-stats'
+    if: ${{ contains(github.event.pull_request.labels, 'pull-request-stats') }}
     runs-on: ubuntu-latest
     steps:
       - name: Run pull request stats
