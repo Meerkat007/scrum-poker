@@ -2,8 +2,8 @@ name: Pull Request Stats
 
 on: 
   pull_request:
-    branches:
-      - stats
+    types:
+      - closed
 
 jobs:
   stats:
