@@ -11,9 +11,11 @@ jobs:
       - name: log
         run: |
           echo "1"
-          echo "${{ github.ref_name }}"
+          echo "${{ github.event.pull_request.title }}"
+          echo "1a"
+          echo "${{ contains(github.event.pull_request.title, 'abc') }}"
           echo "2"
-          echo "${{ github.ref }}"
+          echo "${{ toJson(github.event.pull_request.labels) }}"
           echo "3"
           echo "${{ env.BRANCH_NAME }}"
           echo "4"
