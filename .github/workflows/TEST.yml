@@ -8,5 +8,4 @@ jobs:
     steps:
       - name: Test
         run: |
-          echo "test"
           echo "${{github.event.pull_request.title}}"
