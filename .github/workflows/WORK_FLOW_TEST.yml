@@ -3,9 +3,8 @@ name: Pull Request Stats
 on: issue_comment
 
 jobs:
-  stats:
-  #run_if:
-    # if: ${{ github.event.pull_request.title == '[DO NOT MERGE] pull-request-stats'}
+  run_if:
+    if: ${{ github.event.pull_request.title == '[DO NOT MERGE] pull-request-stats'}
     runs-on: ubuntu-latest
     steps:
       - name: Run pull request stats
