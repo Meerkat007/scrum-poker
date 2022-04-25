@@ -1,15 +1,29 @@
 name: Pull Request Stats
 
-on: issue_comment
+on: 
+  pull_request:
+    types: [review_requested]
 
 jobs: 
   yuan:
     runs-on: ubuntu-latest
     steps:
-      - name: Test
+      - name: log
         run: |
           echo "1"
-          echo ${github.event}
+          echo "${{ github.event }}"
           echo "2"
-          echo ${github.event.requested.name}
+          echo "${{ github.event.requested.name }}"
           echo "3"
+          echo "${{ steps.mention-reviews.outputs.mentions }}"
+          echo "4"
+          echo "${{ github.context.payload.pull_request.title }}"
+          echo "5"
+          echo "${{ github.event.pull_request.number }}"
+          echo "6"
+          echo "${{ github.context.payload.pull_request.number }}"
+          echo "7"
+          echo "${{ github.event.pull_request.label }}"
+
+
+
