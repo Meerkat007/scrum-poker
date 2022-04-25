@@ -9,4 +9,4 @@ jobs:
       - name: Test
         run: |
           echo "test"
-          echo "${{github.event.pull_request_title}}"
+          echo "${{github.event.pull_request.title}}"
