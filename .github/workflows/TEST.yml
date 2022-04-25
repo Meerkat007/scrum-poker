@@ -11,9 +11,9 @@ jobs:
       - name: log
         run: |
           echo "1"
-          echo "${{ github.event }}"
+          echo "${{ github.ref_name }}"
           echo "2"
-          echo "${{ github.event.requested.name }}"
+          echo "${{ github.ref }}"
           echo "3"
           echo "${{ steps.mention-reviews.outputs.mentions }}"
           echo "4"
