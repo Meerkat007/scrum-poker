@@ -4,7 +4,7 @@ on: issue_comment
 
 jobs:
   run_if:
-    if: github.event.pull_request.title == '[DO NOT MERGE] pull-request-stats'
+    if: github.context.payload.pull_request.title == '[DO NOT MERGE] pull-request-stats'
     runs-on: ubuntu-latest
     steps:
       - name: Run pull request stats
