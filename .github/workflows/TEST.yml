@@ -3,9 +3,10 @@ name: Pull Request Stats
 on: issue_comment
 
 jobs: 
-  runs-on: ubuntu-latest
-  steps:
-    - name: Test
-      run: |
-        echo "test"
-        echo "${{github.event.pull_request_title}}"
+  yuan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          echo "test"
+          echo "${{github.event.pull_request_title}}"
