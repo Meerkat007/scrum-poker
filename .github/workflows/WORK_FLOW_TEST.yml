@@ -1,8 +1,6 @@
 name: Pull Request Stats
 
-on: 
-  pull_request:
-    types: [opened]
+on: issue_comment
 
 jobs:
   run_if:
