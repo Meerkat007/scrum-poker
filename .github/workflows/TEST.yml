@@ -9,6 +9,7 @@ jobs:
       - name: Test
         run: |
           echo "1"
-          echo "${{ github.event.pull_request.title }}"
+          echo ${github.event}
           echo "2"
-          echo "${{ github.event.pull_request }}"
+          echo ${github.event.requested.name}
+          echo "3"
