@@ -15,15 +15,18 @@ jobs:
           echo "2"
           echo "${{ github.ref }}"
           echo "3"
-          echo "${{ steps.mention-reviews.outputs.mentions }}"
+          echo "${{ env.BRANCH_NAME }}"
           echo "4"
-          echo "${{ github.context.payload.pull_request.title }}"
+          echo "${{ env.JOB_NAME }}"
           echo "5"
           echo "${{ github.event.pull_request.number }}"
           echo "6"
-          echo "${{ github.context.payload.pull_request.number }}"
+          echo "${{ toJson(github.event.pull_request) }}"
           echo "7"
-          echo "${{ github.event.pull_request.label }}"
+          echo "${{ toJson(github.event) }}"
+          echo "8"
+          echo "${{ github.event.label.name }}"
+
 
 
 
